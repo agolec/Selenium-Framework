@@ -1,66 +1,137 @@
-1) Selenium Automation Framework
-   A scalable Selenium automation framework built with Java and TestNG, implementing the Page Object Model (POM) and a Driver Factory pattern to support cross-browser testing and maintainable test design.
-
-2) Start Here
-   For evaluation, begin in the alg/framework/ package.
-
-Key entry points:
-
-base/BaseTest.java – Handles test setup and teardown
-driver/DriverManagerFactory.java – Initializes WebDriver instances using an enum-based factory pattern
-config/ConfigReader.java – Loads external configuration values
-
-3) Tech Stack
-   Java - Scripting language
-   Selenium WebDriver - Framework under study
-   TestNG - Utilized for control flow and test organization for buildup, execution, and teardown of driver instances over the lifetime of a test execution.
-   Maven - Dependency Manager
-4) Framework Architecture
-   Inside ag/framework, the code is structured with a clear separation of concerns:
-
-Driver Layer - Manages browser initialization using a factory pattern and enums.
-Base Layer - Centralizes test lifecycle management (setup and teardown)
-Page Layer - Implements Page Object Model (POM) for UI Interactions
-Test Layer - Contains test cases, Data Providers and assertions
-Config Layer - Externalizes configuration using properties files
-Utils Layer - Provides re-usable helper methods (waits, element handling, etc)
-5) Execution Flow
-   Configuration values are read from config.properties
-   The selected browser is mapped to a DriverType enum
-   DriverManagerFactory instantiates the appropriate WebDriver
-   BaseTest Initializes and manages the driver lifecycle
-   Tests interact with the application through Page Object classes
-6)Project Structure
-   src/main/java/ ├── alg/framework/ # Core automation framework └── alg/learning/ # Exercises, experiments, and exploratory implementations
-
-6) How to Run
-   Clone the repository
-   Install dependencies: mvn clean install
-   Execute tests: mvn test
-7) Configuration
-   Browser selection is controlled via config.properties:
-
-e.g: browser=CHROME
-
-The value CHROME is mapped to a DriverType enum, ensuring type safety and preventing invalid configurations.
-
-8) Features
-   Cross-browser support via Driver Factory pattern
-
-Enum-based driver selection (type-safe configuration)
-
-Page Object Model (POM) implementation
-
-Externalized configuration
-
-Modular and scalable project structure
-
-Key patterns and components in the framework package were refined from these experiments into a more maintainable and scalable design.
-
 # Selenium Automation Framework
 
-## Run tests
-mvn clean test
+## Overview
 
-## Run specific group
+This project is a Selenium-based UI automation framework built using **Java, Maven, and TestNG**.
+
+It is designed with scalability and maintainability in mind, following standard automation architecture patterns such as separation of concerns between test logic, data handling, and configuration.
+
+---
+
+## Tech Stack
+
+* Java
+* Selenium WebDriver
+* TestNG
+* Maven
+* Chrome (via Selenium Manager)
+
+---
+
+## Project Structure
+
+```
+src/
+  main/
+    java/
+      ag/framework/
+        base/          # BasePage, which all other page objects are made from
+        config/        # ConfigReader and configuration logic
+        driver/        # DriverFactory and browser setup
+        enums/       
+        utils/         # Test data models (POJOs), and wait utilities for the driver.
+      resources/       # Configuration files
+  test/
+    java/
+      ag/framework/
+        tests/         # Test classes (e.g. LoginTest)
+        base/          # BaseTest setup/teardown
+        utils/         # DataProviders for use in Test classes
+    resources/
+      config.properties
+```
+
+---
+
+## Key Design Concepts
+
+### 1. Separation of Concerns
+
+* `main` → framework code (reusable, no test annotations)
+* `test` → test execution layer (TestNG, DataProviders)
+
+### 2. Driver Management
+
+* Uses **Selenium Manager** (no manual driver setup required)
+* No hardcoded driver paths
+
+### 3. Configuration Management
+
+* Config loaded via classpath (`config.properties`)
+* Avoids filesystem dependencies for CI compatibility
+
+### 4. Data-Driven Testing
+
+* Test data modeled as objects (e.g. `LoginTestData`)
+* TestNG `@DataProvider` used for parameterized tests
+
+---
+
+## How to Run Tests
+
+### Run all tests
+
+```
+mvn clean test
+```
+
+### Run specific group
+
+```
 mvn clean test -Dgroups=smoke
+```
+
+---
+
+## Configuration
+
+Located at:
+
+```
+src/test/resources/config.properties
+```
+
+Example:
+
+```
+browser=chrome
+headless=false
+```
+
+---
+
+## Headless Execution
+
+Headless mode can be enabled via:
+
+```
+mvn clean test -Dheadless=true
+```
+
+This is required for CI environments such as Jenkins.
+
+---
+
+## CI/CD Considerations
+
+This framework is designed to run in CI environments:
+
+* No hardcoded file paths
+* No local driver dependencies
+* Supports headless execution
+
+---
+
+## Future Improvements
+
+* Jenkins pipeline integration
+* Parallel test execution
+* Reporting (ExtentReports / Allure)
+* Cross-browser support
+* Environment-based configuration
+
+---
+
+## Author
+
+Your Name
