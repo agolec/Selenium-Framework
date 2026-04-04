@@ -134,4 +134,4 @@ This framework is designed to run in CI environments:
 
 ## Author
 
-Your Name
+Adam Golec
