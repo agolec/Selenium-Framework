@@ -5,8 +5,12 @@ pipeline {
         maven 'Maven 3'
     }
     parameters {
-        string(name: 'TEST_GROUP', defaultValue: 'smoke', description: 'TestNG group to run')
-    }
+            choice(
+                name: 'TEST_GROUP',
+                choices: ['smoke', 'regression'],
+                description: 'Select which TestNG group to run'
+            )
+        }
 
     stages {
             stage('Build & Test') {
