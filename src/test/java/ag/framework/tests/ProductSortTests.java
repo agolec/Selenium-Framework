@@ -15,7 +15,9 @@ import java.util.List;
 
 public class ProductSortTests extends BaseTest {
 
-    @Test(dataProvider = "sortOptions", dataProviderClass = SortingTestDataProvider.class)
+    @Test(dataProvider = "sortOptions",
+            dataProviderClass = SortingTestDataProvider.class,
+    groups={"regression"})
     public void products_shouldSortCorrectly(SortOption option) {
 
         // 1. Login (you cannot skip this in SauceDemo)

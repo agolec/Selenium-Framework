@@ -10,7 +10,9 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
 
-    @Test(dataProvider = "validLogins", dataProviderClass = TestDataProvider.class)
+    @Test(dataProvider = "validLogins",
+            dataProviderClass = TestDataProvider.class,
+            groups = {"regression","smoke"})
     public void validLoginTest(LoginTestData data){
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginToApplication(data.username,data.password);
@@ -25,7 +27,9 @@ public class LoginTest extends BaseTest {
 
         Assert.assertTrue(productPage.isInventoryPageDisplayed());
     }
-    @Test(dataProvider = "invalidLogins", dataProviderClass = TestDataProvider.class)
+    @Test(dataProvider = "invalidLogins",
+            dataProviderClass = TestDataProvider.class,
+            groups = {"regression"})
     public void invalidLogins(LoginTestData data){
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginToApplication(data.username, data.password);

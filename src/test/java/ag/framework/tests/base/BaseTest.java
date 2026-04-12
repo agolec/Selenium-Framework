@@ -9,13 +9,16 @@ import org.testng.annotations.BeforeMethod;
 public class BaseTest {
     protected WebDriver driver;
 
-    @BeforeMethod
+    //Whenever you set up groups in your tests,
+    //you must always use the alwaysRun = true inside your
+    //lifecycle methods. (i.e. BeforeMethod, AfterMethod)
+    @BeforeMethod(alwaysRun = true)
     public void setup(){
         driver = DriverFactory.createDriver();
         driver.get(ConfigReader.getProperty("baseUrl"));
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void teardown(){
         if(driver != null){
             driver.quit();
