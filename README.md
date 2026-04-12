@@ -15,13 +15,16 @@ It is designed with scalability and maintainability in mind, following standard 
 * TestNG
 * Maven
 * Chrome (via Selenium Manager)
+* Docker (for CI environment)
+* Jenkins (CI/CD)
 
 ---
 
 ## Project Structure
 
 ```
-src/
+docker/                 # Contains the Dockerfile for this project to the Jenkins CI container
+src/            
   main/
     java/
       ag/framework/
@@ -114,23 +117,70 @@ This is required for CI environments such as Jenkins.
 
 ## CI/CD Considerations
 
-This framework is designed to run in CI environments:
+This framework is designed for execution in CI environments:
 
 * No hardcoded file paths
-* No local driver dependencies
-* Supports headless execution
+* No local driver dependencies (uses Selenium Manager)
+* Supports headless execution for containerized environments
+* Environment-specific behavior controlled via Java system properties
+* Compatible with Linux-based execution (Docker/Jenkins)
 
 ---
+## CI Execution (Docker + Jenkins)
+This setup resolves environment parity issues between local development (Windows) and CI execution (Linux) by externalizing configuration via runtime parameters.
+
+Note: The Chromium binary path is provided at runtime to support Linux-based execution environments.
+
+This framework is designed to run in a fully containerized CI environment.
+
+### Jenkins Setup (Docker)
+
+A custom Jenkins image is used to support Selenium execution in a Linux environment:
+
+- Installs Chromium browser
+- Enables headless execution
+- Supports Maven-based test execution
+### Build Jenkins Image
+```bash
+docker build -t jenkins-with-chrome -f docker/jenkins.Dockerfile .
+```
+---
+### Run Jenkins
+```bash
+docker run -p 8080:8080 -p 50000:50000 jenkins-with-chrome 
+```
+### Test Execution
+
+Tests are executed via Jenkins using runtime parameters: 
+```
+mvn clean test \
+    -Dgroups=smoke \
+    -Dheadless=true \
+    -Dchrome.binary=/usr/bin/chromium-browser
+```
+### Key CI Features
+
+- Parameterized test execution (TestNG groups)
+- Headless browser support for containerized environments
+- Environment-specific configuration via Java system properties
+- Fully reproducible CI environment via Docker
 
 ## Future Improvements
 
-* Jenkins pipeline integration
 * Parallel test execution
 * Reporting (ExtentReports / Allure)
 * Cross-browser support
 * Environment-based configuration
 
 ---
+
+## Achievements
+
+* Built a containerized CI pipeline using Jenkins and Docker
+* Enabled headless Selenium execution in a Linux-based environment
+* Implemented runtime configuration using Java system properties (`-Dheadless`, `-Dchrome.binary`)
+* Supported dynamic test execution via TestNG groups (smoke/regression)
+* Ensured cross-environment compatibility (local Windows vs CI Linux)
 
 ## Author
 
