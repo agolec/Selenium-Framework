@@ -8,11 +8,16 @@ pipeline {
         string(name: 'TEST_GROUP', defaultValue: 'smoke', description: 'TestNG group to run')
     }
 
-    stages{
-        stage('Build & Test') {
-            steps {
-                sh "mvn clean test -Dgroups=${params.TEST_GROUP}"
+    stages {
+            stage('Build & Test') {
+                steps {
+                    sh """
+                    mvn clean test \
+                    -Dgroups=${params.TEST_GROUP} \
+                    -Dheadless=true \
+                    -Dchrome.binary=/usr/bin/chromium-browser
+                    """
+                }
             }
         }
-    }
 }
