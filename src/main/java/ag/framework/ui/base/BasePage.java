@@ -1,4 +1,4 @@
-package ag.framework.base;
+package ag.framework.ui.base;
 
 import ag.framework.config.ConfigReader;
 import org.openqa.selenium.By;
@@ -67,5 +67,12 @@ public class BasePage {
         WebElement dropdown = waitForClickable(locator);
         Select select = new Select(dropdown);
         select.selectByVisibleText(visibleText);
+    }
+    protected void pauseTest(int millis){
+        try{
+            Thread.sleep(millis);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
     }
 }

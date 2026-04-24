@@ -1,10 +1,10 @@
-package ag.framework.tests;
+package ag.framework.applications.saucedemo.tests;
 
-import ag.framework.tests.base.BaseTest;
-import ag.framework.pages.ProductPage;
-import ag.framework.pages.LoginPage;
-import ag.framework.utils.LoginTestData;
-import ag.framework.tests.utils.TestDataProvider;
+import ag.framework.base.BaseTest;
+import ag.framework.applications.saucedemo.data.TestDataProvider;
+import ag.applications.saucedemo.pages.ProductPage;
+import ag.applications.saucedemo.pages.LoginPage;
+import ag.applications.saucedemo.data.LoginTestData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,7 +12,7 @@ public class LoginTest extends BaseTest {
 
     @Test(dataProvider = "validLogins",
             dataProviderClass = TestDataProvider.class,
-            groups = {"regression","smoke"})
+            groups = {"saucedemo","regression","smoke"})
     public void validLoginTest(LoginTestData data){
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginToApplication(data.username,data.password);
@@ -29,7 +29,7 @@ public class LoginTest extends BaseTest {
     }
     @Test(dataProvider = "invalidLogins",
             dataProviderClass = TestDataProvider.class,
-            groups = {"regression"})
+            groups = {"saucedemo","regression"})
     public void invalidLogins(LoginTestData data){
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginToApplication(data.username, data.password);

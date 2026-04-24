@@ -1,5 +1,6 @@
 package ag.framework.driver;
 
+import ag.framework.config.BrowserType;
 import ag.framework.config.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,12 +16,17 @@ public class DriverFactory {
                 System.getProperty("headless","false")
         );
 
-        String browser = ConfigReader.getProperty("browser");
-
+        String browserValue = ConfigReader.getProperty("browser");
+        BrowserType browser;
+        try {
+            browser = BrowserType.valueOf(browserValue.toUpperCase());
+        } catch (IllegalArgumentException e){
+            throw new RuntimeException("Invalid browser in config: " + browserValue);
+        }
         WebDriver driver;
 
-        switch(browser.toLowerCase()){
-            case "chrome":
+        switch(browser){
+            case CHROME:
                 ChromeOptions options = new ChromeOptions();
 
                 if (isHeadless) {
@@ -38,7 +44,7 @@ public class DriverFactory {
                 }
                 driver = new ChromeDriver(options);
                 break;
-            case "firefox":
+            case FIREFOX:
                 driver = new FirefoxDriver();
                 break;
             default:

@@ -1,4 +1,4 @@
-package ag.framework.utils;
+package ag.applications.saucedemo.data;
 
 public class LoginTestData {
 

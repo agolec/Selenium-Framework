@@ -1,6 +1,6 @@
-package ag.framework.enums;
+package ag.applications.saucedemo.enums;
 
-import ag.framework.pages.Product;
+import ag.applications.saucedemo.pages.Product;
 
 import java.util.Comparator;
 

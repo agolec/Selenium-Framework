@@ -1,6 +1,6 @@
-package ag.framework.tests.utils;
+package ag.framework.applications.saucedemo.data;
 
-import ag.framework.utils.SortingTestData;
+import ag.applications.saucedemo.data.SortingTestData;
 import org.testng.annotations.DataProvider;
 
 public class SortingTestDataProvider {

@@ -1,12 +1,10 @@
-package ag.framework.pages;
+package ag.applications.saucedemo.pages;
 
-import ag.framework.base.BasePage;
+import ag.framework.ui.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPage extends BasePage {
-
-    private WebDriver driver;
 
     private By username = By.id("user-name");
     private By password = By.id("password");

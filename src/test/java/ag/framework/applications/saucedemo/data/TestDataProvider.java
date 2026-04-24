@@ -1,6 +1,6 @@
-package ag.framework.tests.utils;
+package ag.framework.applications.saucedemo.data;
 
-import ag.framework.utils.LoginTestData;
+import ag.applications.saucedemo.data.LoginTestData;
 import org.testng.annotations.DataProvider;
 
 public class TestDataProvider {
