@@ -1,4 +1,4 @@
-package ag.framework.tests.base;
+package ag.framework.base;
 
 import ag.framework.config.ConfigReader;
 import ag.framework.driver.DriverFactory;

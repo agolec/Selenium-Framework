@@ -1,7 +1,7 @@
-package ag.framework.pages;
+package ag.applications.saucedemo.pages;
 
-import ag.framework.base.BasePage;
-import ag.framework.enums.SortOption;
+import ag.framework.ui.base.BasePage;
+import ag.applications.saucedemo.enums.SortOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

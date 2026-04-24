@@ -30,7 +30,7 @@ src/
       ag/framework/
         base/          # BasePage, which all other page objects are made from
         config/        # ConfigReader and configuration logic
-        driver/        # DriverFactory and browser setup
+        driver/        # DriverFactory BrowserType, and browser setup
         enums/       
         utils/         # Test data models (POJOs), and wait utilities for the driver.
       resources/       # Configuration files

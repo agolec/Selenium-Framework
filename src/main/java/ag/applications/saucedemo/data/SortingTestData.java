@@ -1,6 +1,6 @@
-package ag.framework.utils;
+package ag.applications.saucedemo.data;
 
-import ag.framework.enums.SortOption;
+import ag.applications.saucedemo.enums.SortOption;
 
 public class SortingTestData {
     public static Object[][] sortOptions() {

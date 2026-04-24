@@ -1,11 +1,11 @@
-package ag.framework.tests;
+package ag.framework.applications.saucedemo.tests;
 
-import ag.framework.tests.base.BaseTest;
-import ag.framework.enums.SortOption;
-import ag.framework.pages.LoginPage;
-import ag.framework.pages.Product;
-import ag.framework.pages.ProductPage;
-import ag.framework.tests.utils.SortingTestDataProvider;
+import ag.framework.base.BaseTest;
+import ag.applications.saucedemo.enums.SortOption;
+import ag.applications.saucedemo.pages.LoginPage;
+import ag.applications.saucedemo.pages.Product;
+import ag.applications.saucedemo.pages.ProductPage;
+import ag.framework.applications.saucedemo.data.SortingTestDataProvider;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,7 +17,7 @@ public class ProductSortTests extends BaseTest {
 
     @Test(dataProvider = "sortOptions",
             dataProviderClass = SortingTestDataProvider.class,
-    groups={"regression"})
+    groups={"saucedemo","regression"})
     public void products_shouldSortCorrectly(SortOption option) {
 
         // 1. Login (you cannot skip this in SauceDemo)

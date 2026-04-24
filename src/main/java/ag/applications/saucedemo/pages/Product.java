@@ -1,4 +1,4 @@
-package ag.framework.pages;
+package ag.applications.saucedemo.pages;
 
 import java.util.Objects;
 

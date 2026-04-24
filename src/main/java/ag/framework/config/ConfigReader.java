@@ -1,6 +1,5 @@
 package ag.framework.config;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,11 +12,13 @@ public class ConfigReader {
         try {
             properties = new Properties();
 
-            //FileInputStream file = new FileInputStream("src/test/resources/config.properties");
+            String configName = System.getProperty("env","config");
 
-            InputStream file = ConfigReader.class.getClassLoader().getResourceAsStream("config.properties");
+            InputStream file = ConfigReader.class
+                    .getClassLoader()
+                    .getResourceAsStream(configName + ".properties");
             if(file == null){
-                throw new RuntimeException("config.properties not found in classpath.");
+                throw new RuntimeException("Error: Config file not found: " + configName + ".properties");
             }
             properties.load(file);
         } catch (FileNotFoundException e) {
