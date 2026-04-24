@@ -27,21 +27,16 @@ docker/                 # Contains the Dockerfile for this project to the Jenkin
 src/            
   main/
     java/
-      ag/framework/
-        base/          # BasePage, which all other page objects are made from
-        config/        # ConfigReader and configuration logic
-        driver/        # DriverFactory BrowserType, and browser setup
-        enums/       
-        utils/         # Test data models (POJOs), and wait utilities for the driver.
-      resources/       # Configuration files
-  test/
-    java/
-      ag/framework/
-        tests/         # Test classes (e.g. LoginTest)
-        base/          # BaseTest setup/teardown
-        utils/         # DataProviders for use in Test classes
-    resources/
-      config.properties
+        ag/
+            framework/
+                base        → shared test/page setup
+                driver      → WebDriver initialization
+                config      → environment configuration
+                utils       → reusable helpers
+
+            applications/
+                saucedemo   → SauceDemo tests and pages
+                herokuapp   → Heroku app tests and pages
 ```
 
 ---
@@ -70,7 +65,27 @@ src/
 
 ---
 
+## Environment switching
+The framework supports multiple applications via environment configuration.
+
+Use the `-Denv` flag to select an environment to run
+- saucedemo
+- heroku
+
+## Test Organization
+Test execution is scoped using TestNG groups:
+- saucedemo - runs SauceDemo tests
+- herokuapp - runs Heroku tests.
+
 ## How to Run Tests
+saucedemo:
+```
+mvn test -Dgroups=saucedemo
+```
+herokuapp:
+```
+mvn test -Denv=herokuapp -Dgroups=herokuapp
+```
 
 ### Run all tests
 
@@ -81,14 +96,14 @@ mvn clean test
 ### Run specific group
 
 ```
-mvn clean test -Dgroups=smoke
+mvn clean test -Dgroups=*groupName*
 ```
 
 ---
 
 ## Configuration
 
-Located at:
+SauceDemo Located at:
 
 ```
 src/test/resources/config.properties
@@ -99,8 +114,12 @@ Example:
 ```
 browser=chrome
 headless=false
-```
 
+```
+Heroku app located at:
+```
+src/test/resources/config.herokuapp.properties
+```
 ---
 
 ## Headless Execution
